@@ -3,28 +3,31 @@ import React from 'react'
 const SECURITY_CODE = 'paradigma';
 
 function UseState({ name }) {
-  const [ value, setValue ] = React.useState('');
-  const [ error, setError ] = React.useState(false);
-  const [ loading, setLoading ] = React.useState(false);
 
-  console.log(value)
+  const [ state, setState ] = React.useState({
+    value: '',
+    error: false,
+    loading: false
+  });
 
   React.useEffect(() => {
-    console.log('empezando el efecto');
-    if(loading) {
+    if(state.loading) {
       setTimeout(() => {
-        console.log('haciendo la validación')
-        if(value === SECURITY_CODE) {
-          setLoading(false)
+        if(state.value === SECURITY_CODE) {
+          setState({
+            ...state,
+            error: false,
+            loading: false,
+          })
         } else {
-          setError(true)
-          setLoading(false)
+          setState({
+            ...state,
+            error: true,
+            loading: false
+          })
         }
-
-        console.log('terminando la validación')
       }, 3000);}
-    console.log('terminando el efecto');
-  }, [loading]);
+  }, [state.loading]);
 
   return (
     <div>
@@ -32,21 +35,26 @@ function UseState({ name }) {
       <p>Por favor, escribe el código de seguridad.</p>
       <input
         placeholder='Código de seguridad'
-        value={value}
+        value={state.value}
         onChange={(event) => {
-          setValue(event.target.value);
+          setState({
+            ...state,
+            value: event.target.value
+          });
         }}
       />
       <button
         onClick={() => {
-          // setError(false); solución 1
-          setLoading(prevState => !prevState)
+          setState({
+            ...state,
+            loading: true
+          })
         }}
       >Comprobar</button>
-      {(error && !loading) && (
+      {(state.error && !state.loading) && (
         <p>Error: el código es incorrecto</p>
       )}
-      {loading && (
+      {state.loading && (
         <p>Cargando...</p>
       )}
     </div>
