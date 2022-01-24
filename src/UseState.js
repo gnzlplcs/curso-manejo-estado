@@ -38,9 +38,12 @@ function UseState({ name }) {
         }}
       />
       <button
-        onClick={() => setLoading(prevState => !prevState)}
+        onClick={() => {
+          // setError(false); solución 1
+          setLoading(prevState => !prevState)
+        }}
       >Comprobar</button>
-      {error && (
+      {(error && !loading) && (
         <p>Error: el código es incorrecto</p>
       )}
       {loading && (
