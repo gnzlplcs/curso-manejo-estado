@@ -1,12 +1,13 @@
-import { UseState } from './UseState.js';
-import { ClassState } from './ClassState.js';
+import React from 'react';
 import './App.css';
+import { UseState } from './UseState';
+import { ClassState } from './ClassState';
 
 function App() {
   return (
-    <div className="App">
-      <UseState name="UseState" />
-      <ClassState name="ClassState" />
+    <div className='App'>
+      <UseState />
+      <ClassState />
     </div>
   );
 }
