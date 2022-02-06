@@ -27,7 +27,7 @@ function UseState({ name }) {
     <div>
       <h2>Eliminar {name}</h2>
       <p>Por favor, escribe el código de seguridad.</p>
-      {error &&  (
+      {(error && !loading) &&  (
         <p>Error: el código es incorrecto.</p>
       )}
       {loading &&  (
@@ -37,7 +37,7 @@ function UseState({ name }) {
         placeholder='Código de seguridad'
         value={value}
         onChange={(e) => {
-          setValue(e.target.value)
+          setValue(e.target.value);
         }}
       />
       <button
